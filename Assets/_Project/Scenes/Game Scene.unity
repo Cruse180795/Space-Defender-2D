@@ -461,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765015675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.353, z: 0}
+  m_LocalPosition: {x: 0, y: 3.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -539,6 +539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748ef38c5dfb5ac4e98f6d38b601f835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyProjectilePrefab: {fileID: 2988915697561731471, guid: 6896266e179c3c54882e8e581e5b3cd9,
+  _enemyProjectilePrefab: {fileID: 4534950282317270031, guid: 6896266e179c3c54882e8e581e5b3cd9,
     type: 3}
   _fireRate: 1
