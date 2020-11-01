@@ -21,23 +21,36 @@ namespace SpaceDefender.PowerUps
         {
             if (collision.CompareTag("Player"))
             {
-                switch (_powerUpType)
+
+                PowerUpBehaviour behaviour = collision.transform.GetComponent<PowerUpBehaviour>();
+
+                if (behaviour != null)
                 {
-                    case powerUpType.TripleShot:
-                        Debug.Log("Power Up Collected: " + gameObject.name);
-                        break;
-                    case powerUpType.SpeedBoost:
-                        Debug.Log("Power Up Collected: " + gameObject.name);
-                        break;
-                    case powerUpType.ShieldBoost:
-                        Debug.Log("Power Up Collected: " + gameObject.name);
-                        break;
-                    default:
-                        break;
+                    UsePowerUp(behaviour);
                 }
 
-                Destroy(this.gameObject);
+                
             }
+        }
+
+        private void UsePowerUp(PowerUpBehaviour behaviour)
+        {
+            switch (_powerUpType)
+            {
+                case powerUpType.TripleShot:
+                    behaviour.UseTripleShot();
+                    break;
+                case powerUpType.SpeedBoost:
+                    Debug.Log("Power Up Collected: " + gameObject.name);
+                    break;
+                case powerUpType.ShieldBoost:
+                    Debug.Log("Power Up Collected: " + gameObject.name);
+                    break;
+                default:
+                    break;
+            }
+
+            Destroy(this.gameObject);
         }
     }
 }
