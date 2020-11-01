@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SpaceDefender.PowerUps;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace SpaceDefender.Player
     public class PlayerMover : MonoBehaviour
     {
         [Header("Player Movement Config")]
-        [SerializeField] private float _playerMoveSpeed = 10;
+        [SerializeField] private float _playerMoveSpeed = 10f;
+        [SerializeField] private float _playerBoostSpeed = 15f;
         [SerializeField] private float _topBound;
         [SerializeField] private float _bottomBound;
         [SerializeField] private float _rightBound;
@@ -15,8 +17,16 @@ namespace SpaceDefender.Player
 
         private float _currentSpeed;
 
+        private PowerUpBehaviour _behaviour;
+
         private void Start()
         {
+            _behaviour = GetComponent<PowerUpBehaviour>();
+            if(_behaviour == null)
+            {
+                Debug.LogError("The PowerUpBehaviour Script Is Null");
+            }
+
             _currentSpeed = _playerMoveSpeed;
         }
 
@@ -32,6 +42,16 @@ namespace SpaceDefender.Player
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput);
+
+            if(_behaviour.IsSpeedBoostActive == true)
+            {
+                _currentSpeed = _playerBoostSpeed;
+            }
+            else
+            {
+                _currentSpeed = _playerMoveSpeed;
+            }
+
             transform.Translate(moveDirection * _currentSpeed * Time.deltaTime);
 
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 namespace SpaceDefender.PowerUps
@@ -8,7 +9,7 @@ namespace SpaceDefender.PowerUps
     {
         [Header("Power Up CoolDowns")]
         [SerializeField] private float _tripleShotCoolDownTimer = 5f;
-
+        [SerializeField] private float _speedBoostCoolDownTimer = 7.5f;
 
         public bool IsTripleShotActive
         {
@@ -24,12 +25,29 @@ namespace SpaceDefender.PowerUps
         }
         private bool _isTripleShotActive = false;
 
+        public bool IsSpeedBoostActive
+        {
+            get
+            {
+                return _isSpeedBoostActive;
+            }
+
+            set
+            {
+                _isSpeedBoostActive = value;
+            }
+        }
+        private bool _isSpeedBoostActive = false;
+
         private WaitForSeconds _tripleShotTimer;
+        private WaitForSeconds _speedBoostTimer;
+
 
 
         private void Start()
         {
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
+            _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
         }
 
 
@@ -46,6 +64,18 @@ namespace SpaceDefender.PowerUps
             _isTripleShotActive = false;
         }
 
+        public void UseSpeedBoost()
+        {
+            _isSpeedBoostActive = true;
+            StartCoroutine(SpeedBoostCoolDown());
+        }
+
+
+        private IEnumerator SpeedBoostCoolDown()
+        {
+            yield return _speedBoostTimer;
+            _isSpeedBoostActive = false;
+        }
     }
 
 }

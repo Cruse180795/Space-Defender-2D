@@ -41,7 +41,7 @@ namespace SpaceDefender.PowerUps
                     behaviour.UseTripleShot();
                     break;
                 case powerUpType.SpeedBoost:
-                    Debug.Log("Power Up Collected: " + gameObject.name);
+                    behaviour.UseSpeedBoost();
                     break;
                 case powerUpType.ShieldBoost:
                     Debug.Log("Power Up Collected: " + gameObject.name);
