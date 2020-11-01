@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3541137056538367854}
   - component: {fileID: 3541137056538367855}
   - component: {fileID: 7559439312674765300}
+  - component: {fileID: 8195618825523287654}
   m_Layer: 0
   m_Name: Triple Shot Power Up
   m_TagString: Untagged
@@ -144,3 +145,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpMoveSpeed: 5
+--- !u!114 &8195618825523287654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541137056538367762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7f65a272772b94a9fbce2f8b7cbc3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerUpType: 0

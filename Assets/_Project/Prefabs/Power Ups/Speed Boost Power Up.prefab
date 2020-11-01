@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2383932336722173080}
   - component: {fileID: 1005737566055558903}
   - component: {fileID: 6182612399869165133}
+  - component: {fileID: 4057931193996216163}
   m_Layer: 0
   m_Name: Speed Boost Power Up
   m_TagString: Untagged
@@ -144,3 +145,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpMoveSpeed: 5
+--- !u!114 &4057931193996216163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6352775055236805533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7f65a272772b94a9fbce2f8b7cbc3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerUpType: 1
