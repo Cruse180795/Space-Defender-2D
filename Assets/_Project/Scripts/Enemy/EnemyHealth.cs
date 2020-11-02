@@ -30,7 +30,7 @@ namespace SpaceDefender.Enemy
                 if(_playerHealth != null)
                 {
                     _playerHealth.PlayerDamage();
-                    HandleEnemyDeath();
+                    Destroy(this.gameObject);
                 }
             }
 
