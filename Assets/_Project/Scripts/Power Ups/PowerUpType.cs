@@ -44,7 +44,7 @@ namespace SpaceDefender.PowerUps
                     behaviour.UseSpeedBoost();
                     break;
                 case powerUpType.ShieldBoost:
-                    Debug.Log("Power Up Collected: " + gameObject.name);
+                    behaviour.UseShieldBoost();
                     break;
                 default:
                     break;

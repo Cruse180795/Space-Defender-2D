@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SpaceDefender.PowerUps;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,31 @@ namespace SpaceDefender.Player
         [SerializeField] private int _playerHealth = 3;
 
 
+        [SerializeField]private int _shieldHP = 3;
+        private PowerUpBehaviour _behaviour;
+
+        private void Start()
+        {
+            _behaviour = GetComponent<PowerUpBehaviour>();
+
+            if (_behaviour == null)
+            {
+                Debug.LogError("The PowerUpBehaviour Script Is NULL");
+            }
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.CompareTag("Enemy Projectile"))
             {
                 Destroy(collision.transform.parent.gameObject);
+
+                if (_behaviour.IsShieldBoostActive == true)
+                {
+                    PlayerShield();
+                    return;
+                }
+
                 _playerHealth--;
                 HandlePlayerDeath();
                 
@@ -24,8 +44,27 @@ namespace SpaceDefender.Player
 
         public void PlayerDamage()
         {
+
+            if(_behaviour.IsShieldBoostActive == true)
+            {
+                PlayerShield();
+                return;
+            }
+
             _playerHealth--;
             HandlePlayerDeath();
+        }
+
+        private void PlayerShield()
+        {
+            _shieldHP--;
+
+            if (_shieldHP == 0)
+            {
+                _behaviour.IsShieldBoostActive = false;
+            }
+
+            return;
         }
 
         private void HandlePlayerDeath()

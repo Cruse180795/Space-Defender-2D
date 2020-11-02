@@ -39,6 +39,20 @@ namespace SpaceDefender.PowerUps
         }
         private bool _isSpeedBoostActive = false;
 
+        public bool IsShieldBoostActive
+        {
+            get
+            {
+                return _isShieldBoostActive;
+            }
+
+            set
+            {
+                _isShieldBoostActive = value;
+            }
+        }
+        private bool _isShieldBoostActive = false;
+
         private WaitForSeconds _tripleShotTimer;
         private WaitForSeconds _speedBoostTimer;
 
@@ -75,6 +89,12 @@ namespace SpaceDefender.PowerUps
         {
             yield return _speedBoostTimer;
             _isSpeedBoostActive = false;
+        }
+
+
+        public void UseShieldBoost()
+        {
+            _isShieldBoostActive = true;
         }
     }
 
