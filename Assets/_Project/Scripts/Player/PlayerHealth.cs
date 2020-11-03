@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 namespace SpaceDefender.Player
 {
     public class PlayerHealth : MonoBehaviour
@@ -13,6 +13,12 @@ namespace SpaceDefender.Player
 
         [SerializeField]private int _shieldHP = 3;
         private PowerUpBehaviour _behaviour;
+
+
+        public delegate void Health(int health);
+        public static event Health health;
+
+
 
         private void Start()
         {
@@ -37,6 +43,12 @@ namespace SpaceDefender.Player
                 }
 
                 _playerHealth--;
+
+                if (health != null)
+                {
+                    health(_playerHealth);
+                }
+
                 HandlePlayerDeath();
                 
             }
@@ -52,6 +64,13 @@ namespace SpaceDefender.Player
             }
 
             _playerHealth--;
+
+
+            if(health != null)
+            {
+                health(_playerHealth);
+            }
+
             HandlePlayerDeath();
         }
 
@@ -71,6 +90,7 @@ namespace SpaceDefender.Player
         {
             if (_playerHealth <= 0)
             {
+
                 Destroy(this.gameObject);
             }
         }
