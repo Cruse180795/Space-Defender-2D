@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SpaceDefender.Player;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace SpaceDefender.Manager
             _timeBetweenPowerUpSpawns = new WaitForSeconds(_timeBetweenPowerUps);
             _powerUpDealyTimer = new WaitForSeconds(_PowerUpSpawnWaitTimer);
 
+            PlayerHealth.playerDeath += StopSpawning;
+
             StartCoroutine(EnemySpawner());
             StartCoroutine(PowerUpSpawner());
         }
@@ -67,6 +70,11 @@ namespace SpaceDefender.Manager
         {
             Vector3 randomSpawnPos = new Vector3(UnityEngine.Random.Range(-7f, 7f), 6f, 0f);
             return randomSpawnPos;
+        }
+
+        private void StopSpawning()
+        {
+            _stopSpawning = true;
         }
     }
 }

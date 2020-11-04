@@ -18,6 +18,8 @@ namespace SpaceDefender.Player
         public delegate void Health(int health);
         public static event Health health;
 
+        public delegate void PlayerDeath();
+        public static event PlayerDeath playerDeath;
 
 
         private void Start()
@@ -90,6 +92,10 @@ namespace SpaceDefender.Player
         {
             if (_playerHealth <= 0)
             {
+                if(playerDeath != null)
+                {
+                    playerDeath();
+                }
 
                 Destroy(this.gameObject);
             }
