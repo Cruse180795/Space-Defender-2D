@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SpaceDefender.Enemy;
 
 namespace SpaceDefender.Manager
 {
@@ -14,7 +15,6 @@ namespace SpaceDefender.Manager
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private TextMeshProUGUI _countDownText;
         [SerializeField] private int _countDownTime;
-
 
         private SpawnManager _spawnManager;
 
@@ -31,8 +31,10 @@ namespace SpaceDefender.Manager
             PlayerHealth.health += SetHealthBarValue;
             PlayerHealth.playerDeath += ShowGameOverPanel;
             PlayerScore.score += UpdateScoreText;
-            _gameOverPanel.SetActive(false);
 
+
+            _gameOverPanel.SetActive(false);
+            _countDownText.gameObject.SetActive(true);
             StartCoroutine(CountDownToStart());
         }
 
@@ -46,6 +48,7 @@ namespace SpaceDefender.Manager
         {
             _healthBarSliderUI.value = healthValue;
         }
+
 
         private void UpdateScoreText(int score)
         {
