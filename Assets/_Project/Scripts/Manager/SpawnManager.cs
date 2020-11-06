@@ -37,6 +37,10 @@ namespace SpaceDefender.Manager
 
             PlayerHealth.playerDeath += StopSpawning;
 
+        }
+
+        public void StartSpawning()
+        {
             StartCoroutine(EnemySpawner());
             StartCoroutine(PowerUpSpawner());
         }
