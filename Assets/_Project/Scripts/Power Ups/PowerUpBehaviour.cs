@@ -11,6 +11,10 @@ namespace SpaceDefender.PowerUps
         [SerializeField] private float _tripleShotCoolDownTimer = 5f;
         [SerializeField] private float _speedBoostCoolDownTimer = 7.5f;
 
+        [Header("Power Up UI")]
+        [SerializeField] private GameObject _playerShieldUI;
+        [SerializeField] private GameObject _playerThrusterUI;
+
         public bool IsTripleShotActive
         {
             get
@@ -62,6 +66,8 @@ namespace SpaceDefender.PowerUps
         {
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
             _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
+            _playerShieldUI.SetActive(false);
+            _playerThrusterUI.SetActive(false);
         }
 
 
@@ -81,6 +87,7 @@ namespace SpaceDefender.PowerUps
         public void UseSpeedBoost()
         {
             _isSpeedBoostActive = true;
+            _playerThrusterUI.SetActive(true);
             StartCoroutine(SpeedBoostCoolDown());
         }
 
@@ -88,13 +95,19 @@ namespace SpaceDefender.PowerUps
         private IEnumerator SpeedBoostCoolDown()
         {
             yield return _speedBoostTimer;
+            _playerThrusterUI.SetActive(false);
             _isSpeedBoostActive = false;
         }
-
 
         public void UseShieldBoost()
         {
             _isShieldBoostActive = true;
+            _playerShieldUI.SetActive(true);
+        }
+
+        public void HidePlayerShieldUi()
+        {
+            _playerShieldUI.SetActive(false);
         }
     }
 

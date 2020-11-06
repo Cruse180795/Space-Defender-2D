@@ -33,7 +33,6 @@ namespace SpaceDefender.Manager
             PlayerScore.score += UpdateScoreText;
             _gameOverPanel.SetActive(false);
 
-
             StartCoroutine(CountDownToStart());
         }
 

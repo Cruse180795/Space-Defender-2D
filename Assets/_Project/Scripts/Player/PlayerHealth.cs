@@ -83,6 +83,7 @@ namespace SpaceDefender.Player
             if (_shieldHP == 0)
             {
                 _behaviour.IsShieldBoostActive = false;
+                _behaviour.HidePlayerShieldUi();
             }
 
             return;
