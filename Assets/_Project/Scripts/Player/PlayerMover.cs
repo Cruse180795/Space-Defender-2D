@@ -15,6 +15,20 @@ namespace SpaceDefender.Player
         [SerializeField] private float _rightBound;
         [SerializeField] private float _leftBound;
 
+        public float Speed
+        {
+            get
+            {
+                return _currentSpeed;
+            }
+
+            set
+            {
+                _currentSpeed = value;
+            }
+        }
+
+
         private float _currentSpeed;
 
         private PowerUpBehaviour _behaviour;

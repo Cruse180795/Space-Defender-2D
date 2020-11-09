@@ -22,13 +22,36 @@ namespace SpaceDefender.Player
         public static event PlayerDeath playerDeath;
 
 
+        private Animator _animator;
+        private CircleCollider2D _circleCollider2D;
+        PlayerMover _playerMover;
+
+
         private void Start()
         {
             _behaviour = GetComponent<PowerUpBehaviour>();
+            _animator = GetComponent<Animator>();
+            _circleCollider2D = GetComponent<CircleCollider2D>();
+            _playerMover = GetComponent<PlayerMover>();
 
             if (_behaviour == null)
             {
                 Debug.LogError("The PowerUpBehaviour Script Is NULL");
+            }
+
+            if(_animator == null)
+            {
+                Debug.LogError("The Anmimator Is NULL");
+            }
+
+            if(_circleCollider2D == null)
+            {
+                Debug.LogError("The CircleCollider Is NULL");
+            }
+
+            if(_playerMover == null)
+            {
+                Debug.LogError("The PlayerMover Is NULL");
             }
         }
 
@@ -97,8 +120,10 @@ namespace SpaceDefender.Player
                 {
                     playerDeath();
                 }
-
-                Destroy(this.gameObject);
+                _animator.SetTrigger("IsDead");
+                _circleCollider2D.enabled = false;
+                _playerMover.Speed = 0;
+                Destroy(this.gameObject, 2f);
             }
         }
     }

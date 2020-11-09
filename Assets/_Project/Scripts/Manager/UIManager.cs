@@ -59,10 +59,17 @@ namespace SpaceDefender.Manager
         {
             if(_gameOverPanel != null)
             {
-                _gameOverPanel.SetActive(true);
+                StartCoroutine(ShowGameOver());
             }
         }
 
+
+        private IEnumerator ShowGameOver()
+        {
+            yield return new WaitForSeconds(2f);
+
+            _gameOverPanel.SetActive(true);
+        }
 
         private IEnumerator CountDownToStart()
         {
