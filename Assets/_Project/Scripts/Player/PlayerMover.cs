@@ -19,12 +19,12 @@ namespace SpaceDefender.Player
         {
             get
             {
-                return _currentSpeed;
+                return _playerMoveSpeed;
             }
 
             set
             {
-                _currentSpeed = value;
+                _playerMoveSpeed = value;
             }
         }
 

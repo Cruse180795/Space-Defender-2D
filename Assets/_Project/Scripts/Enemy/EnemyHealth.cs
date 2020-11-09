@@ -18,6 +18,7 @@ namespace SpaceDefender.Enemy
         private PlayerHealth _playerHealth;
         private PlayerScore _playerScore;
 
+        private Animator _animator;
         private void Start()
         {
             _playerHealth = FindObjectOfType<PlayerHealth>();
@@ -61,7 +62,7 @@ namespace SpaceDefender.Enemy
         private void HandleEnemyDeath()
         {
             _enemyHealth--;
-
+            
             _enemyHealthSlider.value = _enemyHealth;
 
             if(_enemyHealth <= 0)
@@ -70,8 +71,7 @@ namespace SpaceDefender.Enemy
                 {
                     _playerScore.AddToScore(_pointsPerDeath);
                 }
-
-                Destroy(this.gameObject);
+                Destroy(this.gameObject, 1f);
             }
         }
     }
