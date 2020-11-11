@@ -14,7 +14,8 @@ namespace SpaceDefender.PowerUps
         }
 
         [SerializeField] private powerUpType _powerUpType;
-
+        [SerializeField] private AudioClip _powerUpClip;
+        [Range(0.1f, 1f)] [SerializeField] private float _clipVolume = 0.5f;
 
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -49,7 +50,7 @@ namespace SpaceDefender.PowerUps
                 default:
                     break;
             }
-
+            AudioSource.PlayClipAtPoint(_powerUpClip, Camera.main.transform.position, _clipVolume);
             Destroy(this.gameObject);
         }
     }
