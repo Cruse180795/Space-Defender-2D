@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SpaceDefender.Player;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using UnityEngine;
@@ -60,14 +61,14 @@ namespace SpaceDefender.PowerUps
         private WaitForSeconds _tripleShotTimer;
         private WaitForSeconds _speedBoostTimer;
 
-
-
         private void Start()
         {
+
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
             _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
             _playerShieldUI.SetActive(false);
             _playerThrusterUI.SetActive(false);
+
         }
 
 
@@ -88,6 +89,7 @@ namespace SpaceDefender.PowerUps
         {
             _isSpeedBoostActive = true;
             _playerThrusterUI.SetActive(true);
+
             StartCoroutine(SpeedBoostCoolDown());
         }
 

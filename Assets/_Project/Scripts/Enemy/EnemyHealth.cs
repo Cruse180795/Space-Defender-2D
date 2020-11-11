@@ -71,7 +71,7 @@ namespace SpaceDefender.Enemy
                 {
                     _playerScore.AddToScore(_pointsPerDeath);
                 }
-                Destroy(this.gameObject, 1f);
+                Destroy(this.gameObject);
             }
         }
     }
