@@ -13,7 +13,8 @@ namespace SpaceDefender.Enemy
         [SerializeField] private int _enemyHealth;
         [SerializeField] private int _pointsPerDeath = 10;
         [SerializeField] private Slider _enemyHealthSlider;
-
+        [SerializeField] private AudioClip _enemyDeathClip;
+        [Range(0.1f, 1f)][SerializeField] private float _deathClipVolume = 0.75f;
 
         private PlayerHealth _playerHealth;
         private PlayerScore _playerScore;
@@ -71,6 +72,7 @@ namespace SpaceDefender.Enemy
                 {
                     _playerScore.AddToScore(_pointsPerDeath);
                 }
+                AudioSource.PlayClipAtPoint(_enemyDeathClip, Camera.main.transform.position, _deathClipVolume);
                 Destroy(this.gameObject);
             }
         }

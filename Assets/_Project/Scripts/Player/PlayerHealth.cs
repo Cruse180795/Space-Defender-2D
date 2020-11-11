@@ -11,7 +11,7 @@ namespace SpaceDefender.Player
     {
         [Header("Player Health Config")]
         [SerializeField] private int _playerHealth = 3;
-
+        
 
         [SerializeField]private int _shieldHP = 3;
         private PowerUpBehaviour _behaviour;
@@ -23,7 +23,7 @@ namespace SpaceDefender.Player
         public delegate void PlayerDeath();
         public static event PlayerDeath playerDeath;
 
-
+        private AudioSource _audioSource;
         private Animator _animator;
         private CircleCollider2D _circleCollider2D;
         PlayerMover _playerMover;
@@ -35,6 +35,7 @@ namespace SpaceDefender.Player
             _animator = GetComponent<Animator>();
             _circleCollider2D = GetComponent<CircleCollider2D>();
             _playerMover = GetComponent<PlayerMover>();
+            _audioSource = GetComponent<AudioSource>();
 
             if (_behaviour == null)
             {
@@ -54,6 +55,11 @@ namespace SpaceDefender.Player
             if(_playerMover == null)
             {
                 Debug.LogError("The PlayerMover Is NULL");
+            }
+
+            if (_audioSource == null)
+            {
+                Debug.LogError("The AudioSource Is NULL");
             }
         }
 
@@ -125,6 +131,7 @@ namespace SpaceDefender.Player
                 _animator.SetTrigger("IsDead");
                 _circleCollider2D.enabled = false;
                 _playerMover.Speed = 0;
+                _audioSource.Play();
                 Destroy(this.gameObject, 2f);
             }
         }
