@@ -1,4 +1,5 @@
 ﻿using SpaceDefender.PowerUps;
+using SpaceDefender.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,9 @@ namespace SpaceDefender.Player
         private AudioSource _audioSource;
         private Animator _animator;
         private CircleCollider2D _circleCollider2D;
-        PlayerMover _playerMover;
+
+        private PlayerMover _playerMover;
+        private CameraShake _cameraShake;
 
 
         private void Start()
@@ -36,6 +39,7 @@ namespace SpaceDefender.Player
             _circleCollider2D = GetComponent<CircleCollider2D>();
             _playerMover = GetComponent<PlayerMover>();
             _audioSource = GetComponent<AudioSource>();
+            _cameraShake = FindObjectOfType<CameraShake>();
 
             if (_behaviour == null)
             {
@@ -61,6 +65,11 @@ namespace SpaceDefender.Player
             {
                 Debug.LogError("The AudioSource Is NULL");
             }
+
+            if(_cameraShake == null)
+            {
+                Debug.LogError("The CameraShake Is NULL");
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -76,7 +85,7 @@ namespace SpaceDefender.Player
                 }
 
                 _playerHealth--;
-
+                _cameraShake.TriggerCameraShake();
                 if (health != null)
                 {
                     health(_playerHealth);
@@ -97,10 +106,11 @@ namespace SpaceDefender.Player
             }
 
             _playerHealth--;
+            _cameraShake.TriggerCameraShake();
 
-
-            if(health != null)
+            if (health != null)
             {
+                
                 health(_playerHealth);
             }
 
