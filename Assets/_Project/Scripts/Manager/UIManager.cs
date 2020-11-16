@@ -52,7 +52,7 @@ namespace SpaceDefender.Manager
 
         private void UpdateScoreText(int score)
         {
-            _scoreText.text = " " + score.ToString();
+            _scoreText.text = "Score : " + score.ToString();
         }
 
         private void ShowGameOverPanel()
