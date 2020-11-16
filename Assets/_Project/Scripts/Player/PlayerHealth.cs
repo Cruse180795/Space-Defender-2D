@@ -24,6 +24,9 @@ namespace SpaceDefender.Player
         public delegate void PlayerDeath();
         public static event PlayerDeath playerDeath;
 
+        public delegate void ShieldHealth(int shieldHealth);
+        public static event ShieldHealth shieldHealth;
+
         private AudioSource _audioSource;
         private Animator _animator;
         private CircleCollider2D _circleCollider2D;
@@ -86,6 +89,7 @@ namespace SpaceDefender.Player
 
                 _playerHealth--;
                 _cameraShake.TriggerCameraShake();
+
                 if (health != null)
                 {
                     health(_playerHealth);
@@ -120,6 +124,11 @@ namespace SpaceDefender.Player
         private void PlayerShield()
         {
             _shieldHP--;
+
+            if(shieldHealth != null)
+            {
+                shieldHealth(_shieldHP);
+            }
 
             if (_shieldHP == 0)
             {

@@ -11,6 +11,7 @@ namespace SpaceDefender.Manager
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private Slider _healthBarSliderUI;
+        [SerializeField] private Slider _playerShieldSliderUI;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private TextMeshProUGUI _countDownText;
@@ -30,11 +31,14 @@ namespace SpaceDefender.Manager
             PlayerHealth.health += UpdateHealthBarSlider;
             PlayerHealth.health += SetHealthBarValue;
             PlayerHealth.playerDeath += ShowGameOverPanel;
+            PlayerHealth.shieldHealth += SetShieldSlider;
+            PlayerHealth.shieldHealth += UpdateShieldSlider;
             PlayerScore.score += UpdateScoreText;
 
 
             _gameOverPanel.SetActive(false);
             _countDownText.gameObject.SetActive(true);
+
             StartCoroutine(CountDownToStart());
         }
 
@@ -49,6 +53,16 @@ namespace SpaceDefender.Manager
             _healthBarSliderUI.value = healthValue;
         }
 
+
+        private void UpdateShieldSlider(int shieldHealth)
+        {
+            _playerShieldSliderUI.value = shieldHealth;
+        }
+
+        private void SetShieldSlider(int shieldHealth)
+        {
+            _playerShieldSliderUI.value = shieldHealth;
+        }
 
         private void UpdateScoreText(int score)
         {
