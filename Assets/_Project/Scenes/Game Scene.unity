@@ -349,11 +349,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMoveSpeed: 10
-  _playerBoostSpeed: 15
+  _playerBoostSpeed: 20
   _topBound: -1
   _bottomBound: -4
   _rightBound: 9.5
   _leftBound: -9.5
+  _playerThrusterUI: {fileID: 1505232051}
+  _currentSpeed: 0
 --- !u!50 &146436221
 Rigidbody2D:
   serializedVersion: 4
@@ -516,7 +518,6 @@ MonoBehaviour:
   _tripleShotCoolDownTimer: 5
   _speedBoostCoolDownTimer: 7.5
   _playerShieldUI: {fileID: 1815511212}
-  _playerThrusterUI: {fileID: 1505232051}
   _playerShieldSlider: {fileID: 860242753}
 --- !u!114 &146436229
 MonoBehaviour:
@@ -3217,7 +3218,6 @@ MonoBehaviour:
   _enemySpawnWaitTimer: 3
   _powerUps:
   - {fileID: 5627008121788281942, guid: 0bb3c480a39a3fc40846161b9b9cc413, type: 3}
-  - {fileID: 6352775055236805533, guid: f55be3a95f8877a4cbab4647e3fb106c, type: 3}
   - {fileID: 3541137056538367762, guid: 9b2ea62fd096bfc42ae231d0d1bcdc75, type: 3}
   _timeBetweenPowerUps: 7.5
   _PowerUpSpawnWaitTimer: 5

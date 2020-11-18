@@ -14,7 +14,7 @@ namespace SpaceDefender.Player
         [SerializeField] private float _bottomBound;
         [SerializeField] private float _rightBound;
         [SerializeField] private float _leftBound;
-
+        [SerializeField] private GameObject _playerThrusterUI;
         public float Speed
         {
             get
@@ -29,7 +29,7 @@ namespace SpaceDefender.Player
         }
 
 
-        private float _currentSpeed;
+        [SerializeField]private float _currentSpeed;
 
         private PowerUpBehaviour _behaviour;
 
@@ -42,12 +42,14 @@ namespace SpaceDefender.Player
             }
 
             _currentSpeed = _playerMoveSpeed;
+            _playerThrusterUI.SetActive(false);
         }
 
         private void Update()
         {
             Movement();
             MovementBounds();
+            BoostedMovement();
         }
 
 
@@ -57,19 +59,9 @@ namespace SpaceDefender.Player
             float verticalInput = Input.GetAxis("Vertical");
             Vector3 moveDirection = new Vector3(horizontalInput, verticalInput);
 
-            if(_behaviour.IsSpeedBoostActive == true)
-            {
-                _currentSpeed = _playerBoostSpeed;
-            }
-            else
-            {
-                _currentSpeed = _playerMoveSpeed;
-            }
-
             transform.Translate(moveDirection * _currentSpeed * Time.deltaTime);
 
         }
-
 
         private void MovementBounds()
         {
@@ -82,6 +74,21 @@ namespace SpaceDefender.Player
             else if (transform.position.x < _leftBound)
             {
                 transform.position = new Vector3(_rightBound, transform.position.y, 0f);
+            }
+        }
+
+        private void BoostedMovement()
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _currentSpeed = _playerBoostSpeed;
+                _playerThrusterUI.SetActive(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                _currentSpeed = _playerMoveSpeed;
+                _playerThrusterUI.SetActive(false);
             }
         }
     }

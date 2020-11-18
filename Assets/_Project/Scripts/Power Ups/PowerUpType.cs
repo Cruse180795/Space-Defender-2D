@@ -9,7 +9,6 @@ namespace SpaceDefender.PowerUps
         private enum powerUpType
         {
             TripleShot,
-            SpeedBoost,
             ShieldBoost
         }
 
@@ -40,9 +39,6 @@ namespace SpaceDefender.PowerUps
             {
                 case powerUpType.TripleShot:
                     behaviour.UseTripleShot();
-                    break;
-                case powerUpType.SpeedBoost:
-                    behaviour.UseSpeedBoost();
                     break;
                 case powerUpType.ShieldBoost:
                     behaviour.UseShieldBoost();
