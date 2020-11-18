@@ -12,6 +12,7 @@ namespace SpaceDefender.Manager
     {
         [SerializeField] private Slider _healthBarSliderUI;
         [SerializeField] private Slider _playerShieldSliderUI;
+        [SerializeField] private Slider _playerFuelSliderUI;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private TextMeshProUGUI _countDownText;
@@ -62,6 +63,12 @@ namespace SpaceDefender.Manager
         private void SetShieldSlider(int shieldHealth)
         {
             _playerShieldSliderUI.value = shieldHealth;
+        }
+
+
+        public void UpdateFuelSlider(float fuelAmount)
+        {
+            _playerFuelSliderUI.value = fuelAmount;
         }
 
         private void UpdateScoreText(int score)

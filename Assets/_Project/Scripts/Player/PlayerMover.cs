@@ -1,4 +1,5 @@
 ﻿using SpaceDefender.PowerUps;
+using SpaceDefender.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,13 @@ namespace SpaceDefender.Player
         [SerializeField] private float _rightBound;
         [SerializeField] private float _leftBound;
         [SerializeField] private GameObject _playerThrusterUI;
+
+        [Header("Player Thruster Seetings")]
+        [SerializeField] private float _maxFuel = 100f;
+        [SerializeField] private float _reduceRate = 20f;
+        [SerializeField] private float _regenRate = 40f;
+        [SerializeField] private float _regenCoolDown = 3f;
+
         public float Speed
         {
             get
@@ -29,20 +37,35 @@ namespace SpaceDefender.Player
         }
 
 
-        [SerializeField]private float _currentSpeed;
+        private float _currentSpeed;
+        private bool _canUseFuel = true;
+        private float _currentFuelAmount;
+        private float _fuelCoolDownTimer;
 
         private PowerUpBehaviour _behaviour;
+        private UIManager _uiManager;
 
         private void Start()
         {
             _behaviour = GetComponent<PowerUpBehaviour>();
+            _uiManager = FindObjectOfType<UIManager>();
+
             if(_behaviour == null)
             {
                 Debug.LogError("The PowerUpBehaviour Script Is Null");
             }
 
+            if(_uiManager == null)
+            {
+                Debug.LogError("The UIManager Is NULL");
+            }
+
             _currentSpeed = _playerMoveSpeed;
             _playerThrusterUI.SetActive(false);
+            _currentFuelAmount = _maxFuel;
+            _fuelCoolDownTimer = _regenCoolDown;
+            
+
         }
 
         private void Update()
@@ -50,6 +73,8 @@ namespace SpaceDefender.Player
             Movement();
             MovementBounds();
             BoostedMovement();
+
+            _uiManager.UpdateFuelSlider(_currentFuelAmount);
         }
 
 
@@ -81,14 +106,50 @@ namespace SpaceDefender.Player
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                _currentSpeed = _playerBoostSpeed;
-                _playerThrusterUI.SetActive(true);
+                UseFuel();
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                _currentSpeed = _playerMoveSpeed;
-                _playerThrusterUI.SetActive(false);
+                RefillFuel();
+            }
+
+            RegenCoolDown();
+        }
+
+        private void UseFuel()
+        {
+            _currentSpeed = _playerBoostSpeed;
+            _playerThrusterUI.SetActive(true);
+            _canUseFuel = true;
+            _currentFuelAmount -= _reduceRate * Time.deltaTime;
+            _regenCoolDown = _fuelCoolDownTimer;
+        }
+
+        private void RefillFuel()
+        {
+            _currentSpeed = _playerMoveSpeed;
+            _playerThrusterUI.SetActive(false);
+            _canUseFuel = false;
+        }
+
+        private void RegenCoolDown()
+        {
+            _regenCoolDown -= Time.deltaTime;
+            
+            if(_regenCoolDown <= 0 && _canUseFuel == false)
+            {
+                _regenCoolDown = 0f;
+                RegenFuel();
+            }
+
+        }
+
+        private void RegenFuel()
+        {
+            if(_currentFuelAmount < _maxFuel)
+            {
+                _currentFuelAmount += _regenRate * Time.deltaTime;
             }
         }
     }
