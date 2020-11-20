@@ -14,6 +14,7 @@ namespace SpaceDefender.Manager
         [SerializeField] private Slider _playerShieldSliderUI;
         [SerializeField] private Slider _playerFuelSliderUI;
         [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private TextMeshProUGUI _ammoText;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private TextMeshProUGUI _countDownText;
         [SerializeField] private int _countDownTime;
@@ -35,7 +36,7 @@ namespace SpaceDefender.Manager
             PlayerHealth.shieldHealth += SetShieldSlider;
             PlayerHealth.shieldHealth += UpdateShieldSlider;
             PlayerScore.score += UpdateScoreText;
-
+            PlayerShooting.ammoCount += UpdateAmmoDisplay;
 
             _gameOverPanel.SetActive(false);
             _countDownText.gameObject.SetActive(true);
@@ -74,6 +75,11 @@ namespace SpaceDefender.Manager
         private void UpdateScoreText(int score)
         {
             _scoreText.text = "Score : " + score.ToString();
+        }
+
+        private void UpdateAmmoDisplay(int ammoCount)
+        {
+            _ammoText.text = "Ammo : " + ammoCount + "/15";
         }
 
         private void ShowGameOverPanel()
