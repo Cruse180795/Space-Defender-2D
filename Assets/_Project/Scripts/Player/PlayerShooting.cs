@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using SpaceDefender.Manager;
 
 namespace SpaceDefender.Player
 {
@@ -12,14 +13,8 @@ namespace SpaceDefender.Player
         [SerializeField] private GameObject _playerProjectilePrefab;
         [SerializeField] private GameObject _tripleShotPrefab;
         [SerializeField] private float _fireRate = 0.25f;
-        [SerializeField] private int _ammoCount = 15;
 
         private float _nextFire = -1f;
-        private bool _canShoot = true;
-
-        public delegate void AmmoCount(int ammoCounty);
-        public static event AmmoCount ammoCount;
-
 
         private PowerUpBehaviour _behaviour;
 
@@ -35,12 +30,11 @@ namespace SpaceDefender.Player
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && Time.time > _nextFire && _canShoot == true)
+            if (Input.GetMouseButtonDown(0) && Time.time > _nextFire && _behaviour.GetAmmoCount > 0)
             {
                 FireProjectile();
             }
 
-            
         }
 
         private void FireProjectile()
@@ -57,18 +51,8 @@ namespace SpaceDefender.Player
                 Instantiate(_playerProjectilePrefab, transform.position + offset, Quaternion.identity);
             }
 
-            _ammoCount--;
+            _behaviour.GetAmmoCount--;
 
-            if(ammoCount != null)
-            {
-                ammoCount(_ammoCount);
-            }
-
-
-            if(_ammoCount <= 0)
-            {
-                _canShoot = false;
-            }
         }
     }
 }

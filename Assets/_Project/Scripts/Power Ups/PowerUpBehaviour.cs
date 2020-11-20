@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using UnityEngine;
+using SpaceDefender.Manager;
 
 namespace SpaceDefender.PowerUps
 {
@@ -16,6 +17,26 @@ namespace SpaceDefender.PowerUps
         [SerializeField] private GameObject _playerShieldUI;
         [SerializeField] private GameObject _playerShieldSlider;
 
+        [Header("Player Ammo Config")]
+        [SerializeField] private int _maxPlayerAmmo = 15;
+
+
+        public int GetAmmoCount 
+        {
+            get
+            {
+                return _currentAmmoCount;
+            }
+
+            set
+            {
+                _currentAmmoCount = value;
+                _uiManager.UpdateAmmoDisplay(_currentAmmoCount);
+            }
+            
+        }
+        private int _currentAmmoCount;
+        
         public bool IsTripleShotActive
         {
             get
@@ -47,8 +68,18 @@ namespace SpaceDefender.PowerUps
         private WaitForSeconds _tripleShotTimer;
         private WaitForSeconds _speedBoostTimer;
 
+        private UIManager _uiManager;
+
         private void Start()
         {
+            _uiManager = FindObjectOfType<UIManager>();
+
+            if(_uiManager == null)
+            {
+                Debug.LogError("The UIManager Is NULL");
+            }
+
+            _currentAmmoCount = _maxPlayerAmmo;
 
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
             _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
@@ -56,7 +87,6 @@ namespace SpaceDefender.PowerUps
             _playerShieldSlider.SetActive(false);
 
         }
-
 
         public void UseTripleShot()
         {
@@ -83,6 +113,14 @@ namespace SpaceDefender.PowerUps
             _playerShieldUI.SetActive(false);
             _playerShieldSlider.SetActive(false);
         }
+
+        public void RefillAmmo()
+        {
+            _currentAmmoCount = _maxPlayerAmmo;
+            _uiManager.UpdateAmmoDisplay(_currentAmmoCount);
+        }
+
+        
     }
 
 }

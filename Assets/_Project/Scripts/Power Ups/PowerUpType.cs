@@ -9,7 +9,8 @@ namespace SpaceDefender.PowerUps
         private enum powerUpType
         {
             TripleShot,
-            ShieldBoost
+            ShieldBoost,
+            AmmoRefill
         }
 
         [SerializeField] private powerUpType _powerUpType;
@@ -42,6 +43,10 @@ namespace SpaceDefender.PowerUps
                     break;
                 case powerUpType.ShieldBoost:
                     behaviour.UseShieldBoost();
+                    break;
+
+                case powerUpType.AmmoRefill:
+                    behaviour.RefillAmmo();
                     break;
                 default:
                     break;

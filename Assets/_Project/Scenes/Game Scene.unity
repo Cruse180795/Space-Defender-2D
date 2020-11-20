@@ -492,7 +492,6 @@ MonoBehaviour:
   _tripleShotPrefab: {fileID: 1917256479646150108, guid: 36fe310260c6fab429d945a1c9c86719,
     type: 3}
   _fireRate: 0.25
-  _ammoCount: 15
 --- !u!114 &146436227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +522,7 @@ MonoBehaviour:
   _speedBoostCoolDownTimer: 7.5
   _playerShieldUI: {fileID: 1815511212}
   _playerShieldSlider: {fileID: 860242753}
+  _maxPlayerAmmo: 15
 --- !u!114 &146436229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3838,6 +3838,7 @@ MonoBehaviour:
   _powerUps:
   - {fileID: 5627008121788281942, guid: 0bb3c480a39a3fc40846161b9b9cc413, type: 3}
   - {fileID: 3541137056538367762, guid: 9b2ea62fd096bfc42ae231d0d1bcdc75, type: 3}
+  - {fileID: 7413425656766859242, guid: 32b8830fb7c84aa49984ea713129cc68, type: 3}
   _timeBetweenPowerUps: 7.5
   _PowerUpSpawnWaitTimer: 5
 --- !u!4 &1997249540

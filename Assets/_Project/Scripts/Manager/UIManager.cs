@@ -36,7 +36,6 @@ namespace SpaceDefender.Manager
             PlayerHealth.shieldHealth += SetShieldSlider;
             PlayerHealth.shieldHealth += UpdateShieldSlider;
             PlayerScore.score += UpdateScoreText;
-            PlayerShooting.ammoCount += UpdateAmmoDisplay;
 
             _gameOverPanel.SetActive(false);
             _countDownText.gameObject.SetActive(true);
@@ -77,7 +76,7 @@ namespace SpaceDefender.Manager
             _scoreText.text = "Score : " + score.ToString();
         }
 
-        private void UpdateAmmoDisplay(int ammoCount)
+        public void UpdateAmmoDisplay(int ammoCount)
         {
             _ammoText.text = "Ammo : " + ammoCount + "/15";
         }
