@@ -17,6 +17,7 @@ namespace SpaceDefender.Player
         [SerializeField]private int _shieldHP = 3;
         private PowerUpBehaviour _behaviour;
 
+        private bool _isDead = false;
 
         public delegate void Health(int health);
         public static event Health health;
@@ -33,6 +34,34 @@ namespace SpaceDefender.Player
 
         private PlayerMover _playerMover;
         private CameraShake _cameraShake;
+
+
+        public int GetPlayerHealth
+        {
+            get
+            {
+                return _playerHealth;
+            }
+
+            set
+            {
+                _playerHealth = value;
+
+            }
+        }
+
+        public bool GetIsDead
+        { 
+            get
+            {
+                return _isDead;
+            }
+
+            set
+            {
+                _isDead = value;
+            }
+        }
 
 
         private void Start()
@@ -151,6 +180,7 @@ namespace SpaceDefender.Player
                 _circleCollider2D.enabled = false;
                 _playerMover.Speed = 0;
                 _audioSource.Play();
+                _isDead = true;
                 Destroy(this.gameObject, 2f);
             }
         }

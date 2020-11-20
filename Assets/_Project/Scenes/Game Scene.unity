@@ -3836,9 +3836,7 @@ MonoBehaviour:
   _timeBetweenEnemies: 2
   _enemySpawnWaitTimer: 3
   _powerUps:
-  - {fileID: 5627008121788281942, guid: 0bb3c480a39a3fc40846161b9b9cc413, type: 3}
-  - {fileID: 3541137056538367762, guid: 9b2ea62fd096bfc42ae231d0d1bcdc75, type: 3}
-  - {fileID: 7413425656766859242, guid: 32b8830fb7c84aa49984ea713129cc68, type: 3}
+  - {fileID: 8825272749159232882, guid: 0bea6e740b21f8c4e8409ccc60c50f47, type: 3}
   _timeBetweenPowerUps: 7.5
   _PowerUpSpawnWaitTimer: 5
 --- !u!4 &1997249540

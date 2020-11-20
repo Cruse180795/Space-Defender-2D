@@ -44,9 +44,9 @@ namespace SpaceDefender.Manager
         }
 
 
-        private void UpdateHealthBarSlider(int healthValue)
+        public void UpdateHealthBarSlider(int healthValue)
         {
-            _healthBarSliderUI.value -= healthValue;
+            _healthBarSliderUI.value = healthValue;
         }
 
         private void SetHealthBarValue(int healthValue)

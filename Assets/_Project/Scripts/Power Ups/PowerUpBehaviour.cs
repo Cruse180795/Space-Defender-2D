@@ -69,14 +69,22 @@ namespace SpaceDefender.PowerUps
         private WaitForSeconds _speedBoostTimer;
 
         private UIManager _uiManager;
+        private PlayerHealth _playerHealth;
+
 
         private void Start()
         {
             _uiManager = FindObjectOfType<UIManager>();
+            _playerHealth = GetComponent<PlayerHealth>();
 
             if(_uiManager == null)
             {
                 Debug.LogError("The UIManager Is NULL");
+            }
+
+            if(_playerHealth == null)
+            {
+                Debug.LogError("The PlayerHealth Is NULL");
             }
 
             _currentAmmoCount = _maxPlayerAmmo;
@@ -118,6 +126,15 @@ namespace SpaceDefender.PowerUps
         {
             _currentAmmoCount = _maxPlayerAmmo;
             _uiManager.UpdateAmmoDisplay(_currentAmmoCount);
+        }
+
+        public void RegainHealth()
+        {
+            if(_playerHealth.GetPlayerHealth < 3 && _playerHealth.GetIsDead == false)
+            {
+                _playerHealth.GetPlayerHealth++;
+                _uiManager.UpdateHealthBarSlider(_playerHealth.GetPlayerHealth);
+            }
         }
 
         
