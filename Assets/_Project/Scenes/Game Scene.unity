@@ -491,6 +491,8 @@ MonoBehaviour:
     type: 3}
   _tripleShotPrefab: {fileID: 1917256479646150108, guid: 36fe310260c6fab429d945a1c9c86719,
     type: 3}
+  _shockWaveProjectile: {fileID: 7533801568813346289, guid: 4e0f063001bd1184a86288fd11502c03,
+    type: 3}
   _fireRate: 0.25
 --- !u!114 &146436227
 MonoBehaviour:
@@ -520,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tripleShotCoolDownTimer: 5
   _speedBoostCoolDownTimer: 7.5
+  _shockWaveCoolDownTimer: 5
   _playerShieldUI: {fileID: 1815511212}
   _playerShieldSlider: {fileID: 860242753}
   _maxPlayerAmmo: 15
@@ -3836,7 +3839,11 @@ MonoBehaviour:
   _timeBetweenEnemies: 2
   _enemySpawnWaitTimer: 3
   _powerUps:
+  - {fileID: 7413425656766859242, guid: 32b8830fb7c84aa49984ea713129cc68, type: 3}
   - {fileID: 8825272749159232882, guid: 0bea6e740b21f8c4e8409ccc60c50f47, type: 3}
+  - {fileID: 5627008121788281942, guid: 0bb3c480a39a3fc40846161b9b9cc413, type: 3}
+  - {fileID: 2648003883344398186, guid: 6e4d036dbfbefa444b03908d1497f30c, type: 3}
+  - {fileID: 3541137056538367762, guid: 9b2ea62fd096bfc42ae231d0d1bcdc75, type: 3}
   _timeBetweenPowerUps: 7.5
   _PowerUpSpawnWaitTimer: 5
 --- !u!4 &1997249540

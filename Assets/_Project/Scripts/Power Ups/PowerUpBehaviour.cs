@@ -12,6 +12,7 @@ namespace SpaceDefender.PowerUps
         [Header("Power Up CoolDowns")]
         [SerializeField] private float _tripleShotCoolDownTimer = 5f;
         [SerializeField] private float _speedBoostCoolDownTimer = 7.5f;
+        [SerializeField] private float _shockWaveCoolDownTimer = 5f;
 
         [Header("Power Up UI")]
         [SerializeField] private GameObject _playerShieldUI;
@@ -65,8 +66,23 @@ namespace SpaceDefender.PowerUps
         }
         private bool _isShieldBoostActive = false;
 
+        public bool IsShockWaveActive
+        {
+            get
+            {
+                return _isShockWaveActive;
+            }
+
+            set
+            {
+                _isShockWaveActive = value;
+            }
+        }
+        private bool _isShockWaveActive = false;
+
         private WaitForSeconds _tripleShotTimer;
         private WaitForSeconds _speedBoostTimer;
+        private WaitForSeconds _shockWaveTimer;
 
         private UIManager _uiManager;
         private PlayerHealth _playerHealth;
@@ -91,6 +107,7 @@ namespace SpaceDefender.PowerUps
 
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
             _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
+            _shockWaveTimer = new WaitForSeconds(_shockWaveCoolDownTimer);
             _playerShieldUI.SetActive(false);
             _playerShieldSlider.SetActive(false);
 
@@ -107,6 +124,19 @@ namespace SpaceDefender.PowerUps
         {
             yield return _tripleShotTimer;
             _isTripleShotActive = false;
+        }
+
+
+        public void UseShockWave()
+        {
+            _isShockWaveActive = true;
+            StartCoroutine(ShockWaveCooldown());
+        }
+
+        private IEnumerator ShockWaveCooldown()
+        {
+            yield return _shockWaveTimer;
+            _isShockWaveActive = false;
         }
 
         public void UseShieldBoost()

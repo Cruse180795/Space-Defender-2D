@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player Projectile
   - Enemy Projectile
+  - Enemy
+  - Shock Wave Projectile
   layers:
   - Default
   - TransparentFX

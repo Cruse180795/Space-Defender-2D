@@ -19,11 +19,28 @@ namespace SpaceDefender.Enemy
         private PlayerHealth _playerHealth;
         private PlayerScore _playerScore;
 
+
+        private EnemyMover _enemyMover;
+        private EnemyShooting _enemyShooting;
+
         private Animator _animator;
         private void Start()
         {
             _playerHealth = FindObjectOfType<PlayerHealth>();
             _playerScore = FindObjectOfType<PlayerScore>();
+            _enemyMover = GetComponent<EnemyMover>();
+            _enemyShooting = GetComponent<EnemyShooting>();
+
+            if(_enemyMover == null)
+            {
+                Debug.LogError("The Enemy Mover Is NULL");
+            }
+
+            if(_enemyShooting == null)
+            {
+                Debug.Log("The EnemyShooting Is NULL");
+            }
+
 
             if (_playerHealth == null)
             {
@@ -54,16 +71,22 @@ namespace SpaceDefender.Enemy
                 Destroy(collision.gameObject);
 
                 
-
                 HandleEnemyDeath();
             }
+
+            if(collision.CompareTag("Shock Wave Projectile"))
+            {
+                Destroy(collision.gameObject);
+                _enemyShooting.enabled = false;
+            }
+            
         }
 
 
         private void HandleEnemyDeath()
         {
+
             _enemyHealth--;
-            
             _enemyHealthSlider.value = _enemyHealth;
 
             if(_enemyHealth <= 0)
@@ -73,7 +96,9 @@ namespace SpaceDefender.Enemy
                     _playerScore.AddToScore(_pointsPerDeath);
                 }
                 AudioSource.PlayClipAtPoint(_enemyDeathClip, Camera.main.transform.position, _deathClipVolume);
+
                 Destroy(this.gameObject);
+                
             }
         }
     }

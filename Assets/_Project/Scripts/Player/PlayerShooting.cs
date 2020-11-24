@@ -12,6 +12,7 @@ namespace SpaceDefender.Player
         [Header("Player Shooting Config")]
         [SerializeField] private GameObject _playerProjectilePrefab;
         [SerializeField] private GameObject _tripleShotPrefab;
+        [SerializeField] private GameObject _shockWaveProjectile;
         [SerializeField] private float _fireRate = 0.25f;
 
         private float _nextFire = -1f;
@@ -44,6 +45,10 @@ namespace SpaceDefender.Player
             if(_behaviour.IsTripleShotActive == true)
             {
                 Instantiate(_tripleShotPrefab, transform.position, quaternion.identity);
+            }
+            else if (_behaviour.IsShockWaveActive == true)
+            {
+                Instantiate(_shockWaveProjectile, transform.position, quaternion.identity);
             }
             else
             {
