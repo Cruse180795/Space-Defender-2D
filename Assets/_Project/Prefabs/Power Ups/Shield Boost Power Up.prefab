@@ -160,3 +160,4 @@ MonoBehaviour:
   _powerUpType: 1
   _powerUpClip: {fileID: 8300000, guid: ae457202bafd9d549abc6df455bf8401, type: 3}
   _clipVolume: 0.5
+  _collectionRange: 5
