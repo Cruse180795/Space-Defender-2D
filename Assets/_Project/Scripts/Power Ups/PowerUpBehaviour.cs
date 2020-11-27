@@ -186,8 +186,6 @@ namespace SpaceDefender.PowerUps
 
         public void UseNegativeEffect()
         {
-            _playerHealth.GetPlayerHealth--;
-            _uiManager.UpdateHealthBarSlider(_playerHealth.GetPlayerHealth);
             _playerMover.enabled = false;
             _playerShooting.enabled = false;
             StartCoroutine(NegativeEffectCoolDown());

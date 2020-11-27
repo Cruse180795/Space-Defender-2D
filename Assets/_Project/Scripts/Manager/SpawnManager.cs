@@ -9,7 +9,7 @@ namespace SpaceDefender.Manager
     public class SpawnManager : MonoBehaviour
     {
         [Header("Enemy Spawn Config")]
-        [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private GameObject[] _enemyPrefab;
         [SerializeField] private GameObject _enemyPrefabContainer;
         [SerializeField] private float _timeBetweenEnemies = 2f;
         [SerializeField] private float _enemySpawnWaitTimer = 3f;
@@ -52,7 +52,8 @@ namespace SpaceDefender.Manager
 
             while(_stopSpawning == false)
             {
-                GameObject newEnemy = Instantiate(_enemyPrefab, SetRandomSpawnPosition(), quaternion.identity);
+                int randomEnemy = UnityEngine.Random.Range(0, _enemyPrefab.Length);
+                GameObject newEnemy = Instantiate(_enemyPrefab[randomEnemy], SetRandomSpawnPosition(), quaternion.identity);
                 newEnemy.transform.parent = _enemyPrefabContainer.transform;
                 yield return _timeBetweenEnemySpawns;
             }

@@ -16,6 +16,12 @@ namespace SpaceDefender.Enemy
         [SerializeField] private AudioClip _enemyDeathClip;
         [Range(0.1f, 1f)][SerializeField] private float _deathClipVolume = 0.75f;
 
+        [Header("Enemy Shield Config")]
+        [SerializeField] private Slider _enemyShieldSlider;
+        [SerializeField] private int _shieldHP;
+        [SerializeField] private GameObject _enemyShieldUI;
+        [SerializeField] private bool _canUseShield;
+
         private PlayerHealth _playerHealth;
         private PlayerScore _playerScore;
 
@@ -53,6 +59,12 @@ namespace SpaceDefender.Enemy
             }
 
             _enemyHealthSlider.maxValue = _enemyHealth;
+
+            if(_canUseShield == true)
+            {
+                _enemyShieldSlider.maxValue = _shieldHP;
+            }
+            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -70,8 +82,17 @@ namespace SpaceDefender.Enemy
             {
                 Destroy(collision.gameObject);
 
+                if (_canUseShield == true)
+                {
+                    EnemyShield();
+                    
+                    
+                }
+                else if (_canUseShield == false)
+                {
+                    HandleEnemyDeath();
+                }
                 
-                HandleEnemyDeath();
             }
 
             if(collision.CompareTag("Shock Wave Projectile"))
@@ -99,6 +120,20 @@ namespace SpaceDefender.Enemy
 
                 Destroy(this.gameObject);
                 
+            }
+        }
+
+        private void EnemyShield()
+        {
+            _shieldHP--;
+            _enemyShieldSlider.value = _shieldHP;
+
+            if (_shieldHP == 0)
+            {
+                Destroy(_enemyShieldSlider.gameObject);
+                _enemyShieldUI.SetActive(false);
+                _canUseShield = false;
+
             }
         }
     }
