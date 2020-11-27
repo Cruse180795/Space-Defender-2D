@@ -13,6 +13,7 @@ namespace SpaceDefender.PowerUps
         [SerializeField] private float _tripleShotCoolDownTimer = 5f;
         [SerializeField] private float _speedBoostCoolDownTimer = 7.5f;
         [SerializeField] private float _shockWaveCoolDownTimer = 5f;
+        [SerializeField] private float _negativeEffectCoolDownTimer = 2f;
 
         [Header("Power Up UI")]
         [SerializeField] private GameObject _playerShieldUI;
@@ -83,15 +84,20 @@ namespace SpaceDefender.PowerUps
         private WaitForSeconds _tripleShotTimer;
         private WaitForSeconds _speedBoostTimer;
         private WaitForSeconds _shockWaveTimer;
+        private WaitForSeconds _negativeEffectTimer;
 
         private UIManager _uiManager;
         private PlayerHealth _playerHealth;
+        private PlayerMover _playerMover;
+        private PlayerShooting _playerShooting;
 
 
         private void Start()
         {
             _uiManager = FindObjectOfType<UIManager>();
             _playerHealth = GetComponent<PlayerHealth>();
+            _playerMover = GetComponent<PlayerMover>();
+            _playerShooting = GetComponent<PlayerShooting>();
 
             if(_uiManager == null)
             {
@@ -103,11 +109,22 @@ namespace SpaceDefender.PowerUps
                 Debug.LogError("The PlayerHealth Is NULL");
             }
 
+            if (_playerMover == null)
+            {
+                Debug.LogError("The PlayerMover Is NULL");
+            }
+
+            if (_playerShooting == null)
+            {
+                Debug.LogError("The PlayerShooting Is NULL");
+            }
+
             _currentAmmoCount = _maxPlayerAmmo;
 
             _tripleShotTimer = new WaitForSeconds(_tripleShotCoolDownTimer);
             _speedBoostTimer = new WaitForSeconds(_speedBoostCoolDownTimer);
             _shockWaveTimer = new WaitForSeconds(_shockWaveCoolDownTimer);
+            _negativeEffectTimer = new WaitForSeconds(_negativeEffectCoolDownTimer);
             _playerShieldUI.SetActive(false);
             _playerShieldSlider.SetActive(false);
 
@@ -167,7 +184,21 @@ namespace SpaceDefender.PowerUps
             }
         }
 
+        public void UseNegativeEffect()
+        {
+            _playerHealth.GetPlayerHealth--;
+            _uiManager.UpdateHealthBarSlider(_playerHealth.GetPlayerHealth);
+            _playerMover.enabled = false;
+            _playerShooting.enabled = false;
+            StartCoroutine(NegativeEffectCoolDown());
+        }
         
+        private IEnumerator NegativeEffectCoolDown()
+        {
+            yield return _negativeEffectTimer;
+            _playerMover.enabled = true;
+            _playerShooting.enabled = true;
+        }
     }
 
 }

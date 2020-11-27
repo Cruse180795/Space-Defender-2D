@@ -12,7 +12,8 @@ namespace SpaceDefender.PowerUps
             ShieldBoost,
             AmmoRefill,
             HealthRegain,
-            ShockWave
+            ShockWave,
+            NegativeEffect
         }
 
         [SerializeField] private powerUpType _powerUpType;
@@ -74,6 +75,7 @@ namespace SpaceDefender.PowerUps
                 case powerUpType.TripleShot:
                     behaviour.UseTripleShot();
                     break;
+
                 case powerUpType.ShieldBoost:
                     behaviour.UseShieldBoost();
                     break;
@@ -89,6 +91,11 @@ namespace SpaceDefender.PowerUps
                 case powerUpType.ShockWave:
                     behaviour.UseShockWave();
                     break;
+
+                case powerUpType.NegativeEffect:
+                    behaviour.UseNegativeEffect();
+                    break;
+
                 default:
                     break;
             }
