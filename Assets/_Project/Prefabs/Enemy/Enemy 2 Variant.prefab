@@ -475,7 +475,6 @@ GameObject:
   - component: {fileID: 3229791962096840828}
   - component: {fileID: 4425981009773288574}
   - component: {fileID: 8572141163596656650}
-  - component: {fileID: 4642151143879886081}
   m_Layer: 0
   m_Name: Enemy 2 Variant
   m_TagString: Enemy
@@ -608,7 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162d27870ce21a24298c3ff154538ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyMoveSpeed: 3
 --- !u!114 &4425981009773288574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748ef38c5dfb5ac4e98f6d38b601f835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyProjectilePrefab: {fileID: 4534950282317270031, guid: 6896266e179c3c54882e8e581e5b3cd9,
+  _enemyProjectilePrefab: {fileID: 3451011808305317053, guid: ff063b282e5d86c449449945bc76d667,
     type: 3}
   _fireRate: 1
 --- !u!114 &8572141163596656650
@@ -645,21 +643,6 @@ MonoBehaviour:
   _shieldHP: 2
   _enemyShieldUI: {fileID: 8851719080115799973}
   _canUseShield: 1
---- !u!114 &4642151143879886081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6158868798748826651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fe4fbb69b0f0e4a8c423c6a634f66b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyShieldSlider: {fileID: 6364448516740528979}
-  _shieldHP: 2
-  _enemyShieldUI: {fileID: 8851719080115799973}
 --- !u!1 &6396611366882654747
 GameObject:
   m_ObjectHideFlags: 0

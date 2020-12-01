@@ -3,24 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using SpaceDefender.Core;
+using SpaceDefender.Enemy;
 
 namespace SpaceDefender.Manager
 {
     public class SpawnManager : MonoBehaviour
     {
         [Header("Enemy Spawn Config")]
-        [SerializeField] private GameObject[] _enemyPrefab;
+        [SerializeField] private List<WaveConfig> _waveConfig;
         [SerializeField] private GameObject _enemyPrefabContainer;
-        [SerializeField] private float _timeBetweenEnemies = 2f;
-        [SerializeField] private float _enemySpawnWaitTimer = 3f;
 
         [Header("Power Up Spawn Config")]
         [SerializeField] private GameObject[] _powerUps;
         [SerializeField] private float _timeBetweenPowerUps = 7.5f;
         [SerializeField] private float _PowerUpSpawnWaitTimer = 5f;
 
-        private WaitForSeconds _timeBetweenEnemySpawns;
-        private WaitForSeconds _spawnDelayTimer;
+        private int _startingWave = 0;
 
         private WaitForSeconds _timeBetweenPowerUpSpawns;
         private WaitForSeconds _powerUpDealyTimer;
@@ -29,8 +28,6 @@ namespace SpaceDefender.Manager
 
         private void Start()
         {
-            _timeBetweenEnemySpawns = new WaitForSeconds(_timeBetweenEnemies);
-            _spawnDelayTimer = new WaitForSeconds(_enemySpawnWaitTimer);
 
             _timeBetweenPowerUpSpawns = new WaitForSeconds(_timeBetweenPowerUps);
             _powerUpDealyTimer = new WaitForSeconds(_PowerUpSpawnWaitTimer);
@@ -41,21 +38,32 @@ namespace SpaceDefender.Manager
 
         public void StartSpawning()
         {
-            StartCoroutine(EnemySpawner());
             StartCoroutine(PowerUpSpawner());
+            StartCoroutine(SpawnWaves());
+        }
+
+        private IEnumerator SpawnWaves()
+        {
+            while (_stopSpawning == false)
+            {
+                for (int waveIndex = 0; waveIndex < _waveConfig.Count; waveIndex++)
+                {
+                    var currentWave = _waveConfig[waveIndex];
+                    yield return new WaitForSeconds(3f);
+                    yield return StartCoroutine(SpawnEnemiesInWave(currentWave));
+                }
+            }
         }
 
 
-        private IEnumerator EnemySpawner()
+        private IEnumerator SpawnEnemiesInWave(WaveConfig waveConfig)
         {
-            yield return _spawnDelayTimer;
-
-            while(_stopSpawning == false)
+            for (int enemyCounter = 0; enemyCounter < waveConfig.GetEnemiesPerWave(); enemyCounter++)
             {
-                int randomEnemy = UnityEngine.Random.Range(0, _enemyPrefab.Length);
-                GameObject newEnemy = Instantiate(_enemyPrefab[randomEnemy], SetRandomSpawnPosition(), quaternion.identity);
+                var newEnemy = Instantiate(waveConfig.GetEnemy(), waveConfig.GetWayPoints()[0].transform.position, quaternion.identity);
+                newEnemy.GetComponent<EnemyMover>().SetWaveConfig(waveConfig);
                 newEnemy.transform.parent = _enemyPrefabContainer.transform;
-                yield return _timeBetweenEnemySpawns;
+                yield return new WaitForSeconds(waveConfig._GetTimeBetweenSpawns());
             }
         }
 

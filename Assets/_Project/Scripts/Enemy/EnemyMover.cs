@@ -1,28 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using SpaceDefender.Core;
 namespace SpaceDefender.Enemy
 {
     public class EnemyMover : MonoBehaviour
     {
-        [SerializeField] private float _enemyMoveSpeed = 5f;
 
+        private WaveConfig _waveConfig;
+        private List<Transform> _wayPoint;
+        private int _wavePointIndex = 0;
+
+
+        private void Start()
+        {
+            _wayPoint = _waveConfig.GetWayPoints();
+            transform.position = _wayPoint[_wavePointIndex].transform.position;
+        }
 
 
         private void Update()
         {
-            Movement();
+            EnemyMovement();
         }
 
-
-        private void Movement()
+        public void SetWaveConfig(WaveConfig waveConfig)
         {
-            transform.Translate(Vector3.down * _enemyMoveSpeed * Time.deltaTime);
+            this._waveConfig = waveConfig;
+        }
 
-            if(transform.position.y < -6f)
+        private void EnemyMovement()
+        {
+            if(_wavePointIndex <= _wayPoint.Count - 1)
             {
-                transform.position = new Vector3(Random.Range(-8f, 8f), 8f, 0f);
+                var targetPos = _wayPoint[_wavePointIndex].transform.position;
+                var MoveThisFrame = _waveConfig.GetMoveSpeed() * Time.deltaTime;
+                transform.position = Vector2.MoveTowards(transform.position, targetPos, MoveThisFrame);
+
+                if(transform.position == targetPos)
+                {
+                    _wavePointIndex++;
+                }
+            }
+            else
+            {
+                Destroy(this.gameObject);
             }
         }
     }
