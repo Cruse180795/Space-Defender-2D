@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
+using SpaceDefender.Core;
+using SpaceDefender.Manager;
 
 namespace SpaceDefender.Enemy
 {
@@ -29,6 +31,9 @@ namespace SpaceDefender.Enemy
         private EnemyMover _enemyMover;
         private EnemyShooting _enemyShooting;
 
+        private WaveConfig _waveConfig;
+        private UIManager _uiManager;
+
         private Animator _animator;
         private void Start()
         {
@@ -36,6 +41,12 @@ namespace SpaceDefender.Enemy
             _playerScore = FindObjectOfType<PlayerScore>();
             _enemyMover = GetComponent<EnemyMover>();
             _enemyShooting = GetComponent<EnemyShooting>();
+            _uiManager = FindObjectOfType<UIManager>();
+            _waveConfig = FindObjectOfType<WaveConfig>();
+            if(_uiManager == null)
+            {
+                Debug.LogError("The UIManager Is NULL");
+            }
 
             if(_enemyMover == null)
             {
@@ -64,7 +75,6 @@ namespace SpaceDefender.Enemy
             {
                 _enemyShieldSlider.maxValue = _shieldHP;
             }
-            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -116,6 +126,7 @@ namespace SpaceDefender.Enemy
                 {
                     _playerScore.AddToScore(_pointsPerDeath);
                 }
+
                 AudioSource.PlayClipAtPoint(_enemyDeathClip, Camera.main.transform.position, _deathClipVolume);
 
                 Destroy(this.gameObject);

@@ -15,6 +15,7 @@ namespace SpaceDefender.Core
         [SerializeField] private int _enemiesPerWave;
 
 
+
         public List<Transform> GetWayPoints()
         {
             var waveWayPoints = new List<Transform>();

@@ -46,7 +46,7 @@ namespace SpaceDefender.Manager
         {
             while (_stopSpawning == false)
             {
-                for (int waveIndex = 0; waveIndex < _waveConfig.Count; waveIndex++)
+                for (int waveIndex = _startingWave; waveIndex < _waveConfig.Count; waveIndex++)
                 {
                     var currentWave = _waveConfig[waveIndex];
                     yield return new WaitForSeconds(3f);
@@ -71,7 +71,7 @@ namespace SpaceDefender.Manager
         {
             yield return _powerUpDealyTimer;
 
-            while(_stopSpawning == false)
+            while (_stopSpawning == false)
             {
                 int randomPowerUpIndex = UnityEngine.Random.Range(0, _powerUps.Length);
                 Instantiate(_powerUps[randomPowerUpIndex], SetRandomSpawnPosition(), quaternion.identity);
