@@ -6,11 +6,15 @@ namespace SpaceDefender.Enemy
 {
     public class EnemyMover : MonoBehaviour
     {
+        [SerializeField] private bool _canAvoidPlayer = false;
+        [SerializeField] private float _detectionRange = 3f;
+        [SerializeField] private float _dodgeSpeedMultiplier = 1.5f;
 
         private WaveConfig _waveConfig;
         private List<Transform> _wayPoint;
         private int _wavePointIndex = 0;
 
+        private bool _avoidPlayer = false;
 
         private void Start()
         {
@@ -35,7 +39,17 @@ namespace SpaceDefender.Enemy
             {
                 var targetPos = _wayPoint[_wavePointIndex].transform.position;
                 var MoveThisFrame = _waveConfig.GetMoveSpeed() * Time.deltaTime;
-                transform.position = Vector2.MoveTowards(transform.position, targetPos, MoveThisFrame);
+                var dodgeProjectile = _waveConfig.GetMoveSpeed() * _dodgeSpeedMultiplier * Time.deltaTime;
+
+                if(_avoidPlayer == true)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, targetPos, dodgeProjectile);
+                }
+                else
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, targetPos, MoveThisFrame);
+                }
+                
 
                 if(transform.position == targetPos)
                 {
@@ -45,6 +59,25 @@ namespace SpaceDefender.Enemy
             else
             {
                 Destroy(this.gameObject);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if(_canAvoidPlayer == true)
+            {
+                DetectPlayerProjectile();
+            }
+            
+        }
+
+        private void DetectPlayerProjectile()
+        {
+            Collider2D collider = Physics2D.OverlapCircle(transform.position, _detectionRange);
+
+            if(collider.CompareTag("Player Projectile") || collider.CompareTag("Shock Wave Projectile"))
+            {
+                _avoidPlayer = true;
             }
         }
     }
