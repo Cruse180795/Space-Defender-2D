@@ -28,7 +28,6 @@ namespace SpaceDefender.Enemy
         private PlayerScore _playerScore;
 
 
-        private EnemyMover _enemyMover;
         private EnemyShooting _enemyShooting;
 
         private WaveConfig _waveConfig;
@@ -39,7 +38,6 @@ namespace SpaceDefender.Enemy
         {
             _playerHealth = FindObjectOfType<PlayerHealth>();
             _playerScore = FindObjectOfType<PlayerScore>();
-            _enemyMover = GetComponent<EnemyMover>();
             _enemyShooting = GetComponent<EnemyShooting>();
             _uiManager = FindObjectOfType<UIManager>();
             _waveConfig = FindObjectOfType<WaveConfig>();
@@ -48,10 +46,6 @@ namespace SpaceDefender.Enemy
                 Debug.LogError("The UIManager Is NULL");
             }
 
-            if(_enemyMover == null)
-            {
-                Debug.LogError("The Enemy Mover Is NULL");
-            }
 
             if(_enemyShooting == null)
             {
@@ -108,6 +102,7 @@ namespace SpaceDefender.Enemy
             if(collision.CompareTag("Shock Wave Projectile"))
             {
                 Destroy(collision.gameObject);
+                _enemyHealth--;
                 _enemyShooting.enabled = false;
             }
             

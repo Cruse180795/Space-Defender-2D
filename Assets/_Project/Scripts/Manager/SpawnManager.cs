@@ -10,9 +10,14 @@ namespace SpaceDefender.Manager
 {
     public class SpawnManager : MonoBehaviour
     {
-        [Header("Enemy Spawn Config")]
+        [Header("Enemy Wave Spawn Config")]
         [SerializeField] private List<WaveConfig> _waveConfig;
         [SerializeField] private GameObject _enemyPrefabContainer;
+
+        [Header("Enemy Config")]
+        [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private float _startSpawnTimer = 3f;
+        [SerializeField] private float _timeBetweenEnemies = 5f;
 
         [Header("Power Up Spawn Config")]
         [SerializeField] private GameObject[] _powerUps;
@@ -24,10 +29,15 @@ namespace SpaceDefender.Manager
         private WaitForSeconds _timeBetweenPowerUpSpawns;
         private WaitForSeconds _powerUpDealyTimer;
 
+        private WaitForSeconds _enemySpawnDelay;
+        private WaitForSeconds _betweenEnemiesTimer;
+
         private bool _stopSpawning = false;
 
         private void Start()
         {
+            _enemySpawnDelay = new WaitForSeconds(_startSpawnTimer);
+            _betweenEnemiesTimer = new WaitForSeconds(_timeBetweenEnemies);
 
             _timeBetweenPowerUpSpawns = new WaitForSeconds(_timeBetweenPowerUps);
             _powerUpDealyTimer = new WaitForSeconds(_PowerUpSpawnWaitTimer);
@@ -40,6 +50,7 @@ namespace SpaceDefender.Manager
         {
             StartCoroutine(PowerUpSpawner());
             StartCoroutine(SpawnWaves());
+            StartCoroutine(SpawnSingleEnemy());
         }
 
         private IEnumerator SpawnWaves()
@@ -66,6 +77,21 @@ namespace SpaceDefender.Manager
                 yield return new WaitForSeconds(waveConfig._GetTimeBetweenSpawns());
             }
         }
+
+
+        private IEnumerator SpawnSingleEnemy()
+        {
+            yield return _enemySpawnDelay;
+
+            while (_stopSpawning == false)
+            {
+                GameObject enemy = Instantiate(_enemyPrefab, SetRandomSpawnPosition(), quaternion.identity);
+                enemy.transform.parent = _enemyPrefabContainer.transform;
+                yield return _betweenEnemiesTimer;
+            }
+        }
+
+
 
         private IEnumerator PowerUpSpawner()
         {

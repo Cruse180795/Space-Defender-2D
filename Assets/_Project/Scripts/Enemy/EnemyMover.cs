@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SpaceDefender.Core;
+using SpaceDefender.Player;
 namespace SpaceDefender.Enemy
+
 {
     public class EnemyMover : MonoBehaviour
     {
@@ -15,6 +17,9 @@ namespace SpaceDefender.Enemy
         private int _wavePointIndex = 0;
 
         private bool _avoidPlayer = false;
+        private bool _canRamPlayer = false;
+
+
 
         private void Start()
         {
@@ -38,8 +43,9 @@ namespace SpaceDefender.Enemy
             if(_wavePointIndex <= _wayPoint.Count - 1)
             {
                 var targetPos = _wayPoint[_wavePointIndex].transform.position;
-                var MoveThisFrame = _waveConfig.GetMoveSpeed() * Time.deltaTime;
+                var moveThisFrame = _waveConfig.GetMoveSpeed() * Time.deltaTime;
                 var dodgeProjectile = _waveConfig.GetMoveSpeed() * _dodgeSpeedMultiplier * Time.deltaTime;
+                
 
                 if(_avoidPlayer == true)
                 {
@@ -47,7 +53,7 @@ namespace SpaceDefender.Enemy
                 }
                 else
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, targetPos, MoveThisFrame);
+                    transform.position = Vector2.MoveTowards(transform.position, targetPos, moveThisFrame);
                 }
                 
 
@@ -68,7 +74,6 @@ namespace SpaceDefender.Enemy
             {
                 DetectPlayerProjectile();
             }
-            
         }
 
         private void DetectPlayerProjectile()

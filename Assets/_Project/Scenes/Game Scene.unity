@@ -3839,6 +3839,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28ba26726b5599942900e0471b48e207, type: 2}
   - {fileID: 11400000, guid: d9a2b179543b4fa4ebb09993d296072e, type: 2}
   _enemyPrefabContainer: {fileID: 1743772966}
+  _enemyPrefab: {fileID: 4104870577366363705, guid: 4f644bf95364e7343be12b905e2288c5,
+    type: 3}
+  _startSpawnTimer: 3
+  _timeBetweenEnemies: 15
   _powerUps:
   - {fileID: 7413425656766859242, guid: 32b8830fb7c84aa49984ea713129cc68, type: 3}
   - {fileID: 8825272749159232882, guid: 0bea6e740b21f8c4e8409ccc60c50f47, type: 3}
