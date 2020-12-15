@@ -62,9 +62,12 @@ namespace SpaceDefender.PowerUps
                 if (behaviour != null)
                 {
                     UsePowerUp(behaviour);
-                }
+                }          
+            }
 
-                
+            if (collision.CompareTag("Enemy Projectile"))
+            {
+                Destroy(this.gameObject);
             }
         }
 
